@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media Interaktif SPOK - Bahasa Indonesia Kelas IV SD</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background-color: #0f172a;
+      user-select: none;
+      margin: 0;
+      padding: 0;
+    }
+    .font-fredoka {
+      font-family: 'Fredoka One', cursive;
+    }
+    
+    /* Responsive 16:9 aspect ratio container */
+    .aspect-16-9-container {
+      width: 100vw;
+      height: calc(100vw * 9 / 16);
+      max-height: 100vh;
+      max-width: calc(100vh * 16 / 9);
+    }
+    
+    /* Style khusus saat True Fullscreen */
+    :fullscreen .aspect-16-9-container,
+    :-webkit-full-screen .aspect-16-9-container {
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: none !important;
+      max-height: none !important;
+      border-radius: 0 !important;
+      border: none !important;
+    }
+
+    .custom-scroll::-webkit-scrollbar {
+      width: 5px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background-color: #cbd5e1;
+      border-radius: 9999px;
+    }
+    .btn-wood {
+      background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%);
+      box-shadow: 0 6px 0 #b45309, 0 10px 10px rgba(0,0,0,0.15);
+      transition: all 0.1s ease;
+    }
+    .btn-wood:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #b45309, 0 4px 5px rgba(0,0,0,0.15);
+    }
+    .menu-card {
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15);
+    }
+    .menu-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.25);
+    }
+    .bg-modul {
+      background-image: url('https://lh3.googleusercontent.com/d/1nLeF6QOHl3jXQBVP5ZQUU1vIvDdJ8PbK=s1600');
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Warna Header Kategori SPOK */
+    .spok-s { background-color: #ef4444; color: white; border-color: #b91c1c; }
+    .spok-p { background-color: #f97316; color: white; border-color: #c2410c; }
+    .spok-o { background-color: #10b981; color: white; border-color: #047857; }
+    .spok-k { background-color: #3b82f6; color: white; border-color: #1d4ed8; }
+
+    /* Latar Belakang Kotak Unsur SPOK */
+    .spok-bg-s { background-color: rgba(254, 226, 226, 0.95); border: 2px dashed #ef4444; }
+    .spok-bg-p { background-color: rgba(255, 237, 213, 0.95); border: 2px dashed #f97316; }
+    .spok-bg-o { background-color: rgba(209, 250, 229, 0.95); border: 2px dashed #10b981; }
+    .spok-bg-k { background-color: rgba(219, 234, 254, 0.95); border: 2px dashed #3b82f6; }
+
+    /* Kartu Kata Warna-Warni Soft */
+    .card-tile {
+      box-shadow: 0 3px 0 rgba(0, 0, 0, 0.12);
+      transition: all 0.15s ease;
+      font-weight: 800;
+      color: #0f172a;
+      cursor: grab;
+    }
+    .card-tile:active {
+      cursor: grabbing;
+      transform: scale(0.96);
+    }
+
+    .tile-blue   { background-color: #e0f2fe; border: 1.5px solid #7dd3fc; }
+    .tile-red    { background-color: #ffe4e6; border: 1.5px solid #fca5a5; }
+    .tile-orange { background-color: #ffedd5; border: 1.5px solid #fdba74; }
+    .tile-purple { background-color: #f3e8ff; border: 1.5px solid #d8b4fe; }
+    .tile-green  { background-color: #dcfce7; border: 1.5px solid #86efac; }
+    .tile-pink   { background-color: #fce7f3; border: 1.5px solid #f9a8d4; }
+    .tile-teal   { background-color: #ccfbf1; border: 1.5px solid #5eead4; }
+    .tile-yellow { background-color: #fef9c3; border: 1.5px solid #fde047; }
+
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .animate-pop {
+      animation: popIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+  </style>
+</head>
+<body class="h-screen w-screen flex items-center justify-center overflow-hidden bg-slate-900" id="main-body">
+
+  <!-- FRAME UTAMA (16:9) -->
+  <div id="media-frame" class="aspect-16-9-container rounded-3xl shadow-2xl overflow-hidden flex flex-col relative border-4 border-white/80 bg-cover bg-center"
+       style="background-image: url('https://lh3.googleusercontent.com/d/1UnLaYYss-7ZxujVT0cuh-jpVFE2D4QsG=s1600');">
+    
+    <div class="absolute inset-0 bg-slate-900/10 backdrop-blur-[1px] z-0"></div>
+
+    <!-- HEADER NAVIGASI -->
+    <header class="bg-white/90 backdrop-blur px-6 py-2 flex items-center justify-between shrink-0 z-10 border-b border-white/50 shadow-sm">
+      <div class="flex items-center gap-3">
+        <div>
+          <h1 class="font-extrabold text-[#0f172a] text-xl tracking-tight leading-none">SPOK</h1>
+          <p class="text-[10px] font-bold text-[#64748b] mt-0.5">Bahasa Indonesia • Kelas IV SD</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 md:gap-3">
+        <div id="header-score-box" class="hidden bg-amber-100 border border-amber-300 px-3.5 py-1 rounded-2xl items-center gap-1.5 shadow-sm">
+          <span class="text-base">🏆</span>
+          <span id="header-score-label" class="text-xs font-bold text-amber-900">Skor Game: <span id="header-score-val" class="text-amber-700 font-extrabold text-sm">0</span></span>
+        </div>
+
+        <button onclick="playBtnClick(); toggleFullscreen();" class="bg-indigo-100 hover:bg-indigo-200 text-indigo-900 px-3.5 py-1.5 rounded-2xl font-bold text-xs shadow-sm flex items-center gap-1.5 border border-indigo-300 transition active:scale-95">
+          <span>⛶</span> Fullscreen
+        </button>
+
+        <button onclick="playBtnClick(); goToHome();" class="bg-[#fef3c7] hover:bg-[#fde68a] text-[#78350f] px-3.5 py-1.5 rounded-2xl font-bold text-xs shadow-sm flex items-center gap-1.5 border border-[#fef08a] transition active:scale-95">
+          <span>⌂</span> Sampul Utama
+        </button>
+      </div>
+    </header>
+
+    <!-- KONTEN UTAMA -->
+    <main class="flex-1 relative overflow-hidden flex items-center justify-center z-10">
+
+      <!-- 1. BERANDA / SAMPUL AWAL -->
+      <section id="sec-cover" class="w-full h-full absolute inset-0 flex items-center justify-center z-20 transition-all">
+        <img src="https://lh3.googleusercontent.com/d/1UnLaYYss-7ZxujVT0cuh-jpVFE2D4QsG=s1600" 
+             alt="Background Sampul Utama" 
+             class="w-full h-full object-cover">
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-30">
+          <button onclick="playBtnClick(); unlockAudioContext(); showMenu();" class="btn-wood px-10 py-3.5 rounded-full font-fredoka text-white text-xl md:text-2xl tracking-wide flex items-center gap-2 border-2 border-amber-200">
+            <span>►</span> Mulai Belajar!
+          </button>
+        </div>
+      </section>
+
+      <!-- 2. MENU UTAMA -->
+      <section id="sec-menu" class="w-full h-full p-4 md:p-6 hidden flex-col items-center justify-center overflow-y-auto custom-scroll bg-modul relative">
+        <div class="absolute inset-0 bg-slate-900/30 backdrop-blur-sm z-0"></div>
+
+        <h2 class="font-extrabold text-white text-2xl md:text-4xl mb-4 tracking-tight text-center drop-shadow-md z-10">Menu Utama Pembelajaran</h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-5 max-w-4xl w-full px-2 z-10">
+          <button onclick="playBtnClick(); showSection('tujuan');" class="menu-card bg-white/95 backdrop-blur p-4 rounded-3xl border-2 border-white flex items-center justify-start gap-4 text-left group min-h-[110px]">
+            <div class="text-4xl md:text-5xl shrink-0 group-hover:scale-110 transition-transform">🎯</div>
+            <span class="font-bold text-[#0f172a] text-base md:text-xl">1. Tujuan Pembelajaran</span>
+          </button>
+
+          <button onclick="playBtnClick(); showSection('materi');" class="menu-card bg-[#fef3c7]/95 backdrop-blur p-4 rounded-3xl border-2 border-amber-200 flex items-center justify-start gap-4 text-left group min-h-[110px]">
+            <div class="text-4xl md:text-5xl shrink-0 group-hover:scale-110 transition-transform">📖</div>
+            <span class="font-bold text-[#0f172a] text-base md:text-xl">2. Materi</span>
+          </button>
+
+          <button onclick="playBtnClick(); showSection('ice');" class="menu-card bg-[#dcfce7]/95 backdrop-blur p-4 rounded-3xl border-2 border-emerald-200 flex items-center justify-start gap-4 text-left group min-h-[110px]">
+            <div class="text-4xl md:text-5xl shrink-0 group-hover:scale-110 transition-transform">🎉</div>
+            <span class="font-bold text-[#0f172a] text-base md:text-xl">3. Ice Breaking</span>
+          </button>
+
+          <button onclick="playBtnClick(); showSection('kuis');" class="menu-card bg-[#fef3c7]/95 backdrop-blur p-4 rounded-3xl border-2 border-amber-200 flex items-center justify-start gap-4 text-left group min-h-[110px]">
+            <div class="text-4xl md:text-5xl shrink-0 group-hover:scale-110 transition-transform">✏️</div>
+            <span class="font-bold text-[#0f172a] text-base md:text-xl">4. Kuis</span>
+          </button>
+
+          <button onclick="playBtnClick(); showSection('games');" class="menu-card bg-[#e0f2fe]/95 backdrop-blur p-4 rounded-3xl border-2 border-sky-200 flex items-center justify-start gap-4 text-left group min-h-[110px]">
+            <div class="text-4xl md:text-5xl shrink-0 group-hover:scale-110 transition-transform">🎮</div>
+            <span class="font-bold text-[#0f172a] text-base md:text-xl">5. Games SPOK</span>
+          </button>
+
+          <button onclick="playBtnClick(); showSection('evaluasi');" class="menu-card bg-[#dcfce7]/95 backdrop-blur p-4 rounded-3xl border-2 border-emerald-200 flex items-center justify-start gap-4 text-left group min-h-[110px]">
+            <div class="text-4xl md:text-5xl shrink-0 group-hover:scale-110 transition-transform">⏱️</div>
+            <span class="font-bold text-[#0f172a] text-base md:text-xl">6. Evaluasi</span>
+          </button>
+
+          <button onclick="playBtnClick(); showSection('panduan');" class="menu-card bg-white/95 backdrop-blur p-4 rounded-3xl border-2 border-white flex items-center justify-start gap-4 text-left group min-h-[110px]">
+            <div class="text-4xl md:text-5xl shrink-0 group-hover:scale-110 transition-transform">❓</div>
+            <span class="font-bold text-[#0f172a] text-base md:text-xl">7. Panduan Penggunaan</span>
+          </button>
+
+          <button onclick="playBtnClick(); showSection('profil');" class="menu-card bg-[#dcfce7]/95 backdrop-blur p-4 rounded-3xl border-2 border-emerald-200 flex items-center justify-start gap-4 text-left group min-h-[110px]">
+            <div class="text-4xl md:text-5xl shrink-0 group-hover:scale-110 transition-transform">👩‍🏫</div>
+            <span class="font-bold text-[#0f172a] text-base md:text-xl">8. Profil Pengembang</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 3. TUJUAN PEMBELAJARAN -->
+      <section id="sec-tujuan" class="w-full h-full p-4 md:p-6 bg-modul hidden flex-col justify-between overflow-y-auto custom-scroll relative">
+        <div class="absolute inset-0 bg-white/90 backdrop-blur-md z-0"></div>
+        <div class="z-10">
+          <h2 class="font-fredoka text-2xl md:text-3xl text-slate-800 mb-4 text-center">🎯 Tujuan Pembelajaran</h2>
+          <div class="space-y-3 max-w-4xl mx-auto">
+            
+            <div class="bg-amber-50/95 p-3.5 md:p-4 rounded-2xl border border-amber-200 flex items-start gap-3 shadow-sm">
+              <span class="text-xl md:text-2xl bg-amber-200 p-2 rounded-xl shrink-0 leading-none">1️⃣</span>
+              <div>
+                <span class="font-fredoka text-amber-900 text-sm md:text-base block mb-0.5">TP 1 – C4 (Menganalisis)</span>
+                <p class="text-slate-700 font-bold text-xs md:text-sm leading-relaxed">
+                  Murid kelas IV (A) mampu menganalisis unsur Subjek, Predikat, Objek, dan Keterangan (SPOK) dalam sebuah kalimat (B) melalui contoh kalimat dan media interaktif Canva yang disajikan guru (C) dengan menentukan keempat unsur kalimat secara tepat (D).
+                </p>
+              </div>
+            </div>
+
+            <div class="bg-emerald-50/95 p-3.5 md:p-4 rounded-2xl border border-emerald-200 flex items-start gap-3 shadow-sm">
+              <span class="text-xl md:text-2xl bg-emerald-200 p-2 rounded-xl shrink-0 leading-none">2️⃣</span>
+              <div>
+                <span class="font-fredoka text-emerald-900 text-sm md:text-base block mb-0.5">TP 2 – C5 (Mengevaluasi)</span>
+                <p class="text-slate-700 font-bold text-xs md:text-sm leading-relaxed">
+                  Murid kelas IV (A) mampu mengevaluasi ketepatan susunan kalimat berpola SPOK dan memberikan alasan atas perbaikannya (B) melalui kegiatan diskusi kelompok, permainan kartu kata, dan presentasi hasil (C) dengan memberikan penilaian dan alasan yang tepat (D).
+                </p>
+              </div>
+            </div>
+
+            <div class="bg-sky-50/95 p-3.5 md:p-4 rounded-2xl border border-sky-200 flex items-start gap-3 shadow-sm">
+              <span class="text-xl md:text-2xl bg-sky-200 p-2 rounded-xl shrink-0 leading-none">3️⃣</span>
+              <div>
+                <span class="font-fredoka text-sky-900 text-sm md:text-base block mb-0.5">TP 3 – C6 (Mencipta)</span>
+                <p class="text-slate-700 font-bold text-xs md:text-sm leading-relaxed">
+                  Murid kelas IV (A) mampu menciptakan kalimat berpola Subjek, Predikat, Objek, dan Keterangan (SPOK) (B) berdasarkan kata acak, gambar, atau konteks budaya dan kehidupan sehari-hari yang disediakan (C) dengan susunan yang logis, bermakna, dan sesuai kaidah kalimat (D).
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="flex justify-start pt-3 border-t border-slate-200 z-10 mt-2">
+          <button onclick="playBtnClick(); showMenu();" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-6 py-1.5 rounded-xl font-bold text-xs md:text-sm">⬅ Kembali ke Menu Utama</button>
+        </div>
+      </section>
+
+      <!-- 4. MATERI -->
+      <section id="sec-materi" class="w-full h-full p-6 bg-modul hidden flex-col justify-between overflow-y-auto custom-scroll relative">
+        <div class="absolute inset-0 bg-slate-100/95 backdrop-blur-md z-0"></div>
+
+        <div class="z-10 h-full flex flex-col justify-between">
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3 bg-white/95 p-3 rounded-2xl border border-slate-200 shadow-sm shrink-0">
+              <h2 class="font-fredoka text-xl md:text-2xl text-slate-800">📖 Materi: Struktur Kalimat (SPOK)</h2>
+              
+              <div class="flex items-center gap-2">
+                <button onclick="playBtnClick(); playMateriAudio();" class="bg-emerald-500 hover:bg-emerald-600 text-white px-3.5 py-1.5 rounded-xl font-bold text-xs md:text-sm flex items-center gap-1 shadow-sm transition">
+                  🔊 Dengarkan
+                </button>
+                <button onclick="playBtnClick(); stopMateriAudio();" class="bg-rose-500 hover:bg-rose-600 text-white px-3.5 py-1.5 rounded-xl font-bold text-xs md:text-sm flex items-center gap-1 shadow-sm transition">
+                  ⏹ Hentikan Audio
+                </button>
+              </div>
+            </div>
+
+            <div class="space-y-3">
+              <div class="bg-amber-50/95 p-3.5 rounded-2xl border border-amber-200">
+                <h3 class="font-fredoka text-amber-900 text-base md:text-xl mb-0.5">Definisi</h3>
+                <p class="text-slate-700 font-bold text-xs md:text-lg leading-relaxed">Struktur kalimat adalah susunan atau pola unsur-unsur dalam sebuah kalimat agar kalimat tersebut jelas, runtut, dan mudah dipahami.</p>
+              </div>
+
+              <h3 class="font-fredoka text-slate-800 text-base md:text-xl mb-1">Unsur-Unsur Kalimat:</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="bg-rose-50/95 p-3 rounded-xl border border-rose-200">
+                  <span class="bg-rose-500 text-white font-fredoka px-2.5 py-1 rounded text-sm md:text-base inline-block">1. Subjek (S)</span>
+                  <p class="text-xs md:text-base text-rose-900 font-bold mt-1.5">Pelaku dalam kalimat dan biasanya berupa kata benda.</p>
+                  <p class="text-xs md:text-base text-rose-700 mt-1"><b>Contoh:</b> "<u>Ani</u> membaca buku" → Ani = Subjek</p>
+                </div>
+                <div class="bg-orange-50/95 p-3 rounded-xl border border-orange-200">
+                  <span class="bg-orange-500 text-white font-fredoka px-2.5 py-1 rounded text-xs md:text-base inline-block">2. Predikat (P)</span>
+                  <p class="text-xs md:text-base text-orange-900 font-bold mt-1.5">Menjelaskan apa yang dilakukan subjek dan biasanya berupa kata kerja.</p>
+                  <p class="text-xs md:text-base text-orange-700 mt-1"><b>Contoh:</b> "Ani <u>membaca</u> buku" → membaca = Predikat</p>
+                </div>
+                <div class="bg-emerald-50/95 p-3 rounded-xl border border-emerald-200">
+                  <span class="bg-emerald-500 text-white font-fredoka px-2.5 py-1 rounded text-xs md:text-base inline-block">3. Objek (O)</span>
+                  <p class="text-xs md:text-base text-emerald-900 font-bold mt-1.5">Yang dikenai tindakan dan biasanya ada setelah predikat.</p>
+                  <p class="text-xs md:text-base text-emerald-700 mt-1"><b>Contoh:</b> "Ani membaca <u>buku</u>" → buku = Objek</p>
+                </div>
+                <div class="bg-blue-50/95 p-3 rounded-xl border border-blue-200">
+                  <span class="bg-blue-500 text-white font-fredoka px-2.5 py-1 rounded text-xs md:text-base inline-block">4. Keterangan (K)</span>
+                  <p class="text-xs md:text-base text-blue-900 font-bold mt-1.5">Menjelaskan waktu, tempat, cara, tujuan, dll.</p>
+                  <p class="text-xs md:text-base text-blue-700 mt-1"><b>Contoh:</b> "Ani membaca buku <u>di rumah</u>" → di rumah = Keterangan tempat</p>
+                </div>
+              </div>
+
+              <div class="bg-sky-50/95 p-3.5 rounded-2xl border border-sky-200">
+                <h3 class="font-fredoka text-sky-900 text-sm md:text-base mb-1">Pola Struktur Kalimat:</h3>
+                <ul class="text-xs md:text-base font-bold text-slate-700 space-y-1">
+                  <li>• S + P = Saya tidur</li>
+                  <li>• S + P + O = Saya makan nasi</li>
+                  <li>• S + P + K = Saya belajar di rumah</li>
+                  <li>• S + P + O + K = Saya membaca buku di kamar</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-start pt-3 border-t border-slate-200">
+            <button onclick="playBtnClick(); showMenu();" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-6 py-2 rounded-xl font-bold text-sm">⬅ Kembali ke Menu Utama</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. ICE BREAKING -->
+      <section id="sec-ice" class="w-full h-full p-4 bg-modul hidden flex-col justify-between relative overflow-y-auto custom-scroll">
+        <div class="absolute inset-0 bg-emerald-950/30 backdrop-blur-sm z-0"></div>
+
+        <div class="text-center z-10 shrink-0 mb-2">
+          <h2 class="font-fredoka text-2xl text-white drop-shadow">🎉 Ice Breaking SPOK</h2>
+          <p class="text-emerald-100 font-bold text-xs">Pilih kegiatan ice breaking di bawah ini!</p>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-2 md:gap-4 z-10 shrink-0 mb-2">
+          <button onclick="playBtnClick(); showIceTab('spok');" id="btn-tab-spok" class="bg-amber-400 hover:bg-amber-500 text-amber-950 font-fredoka px-5 md:px-6 py-2.5 rounded-2xl shadow-md text-base md:text-lg border-2 border-amber-200 transition">
+            👏 1. Belajar SPOK
+          </button>
+          <button onclick="playBtnClick(); showIceTab('chicken');" id="btn-tab-chicken" class="bg-emerald-400 hover:bg-emerald-500 text-emerald-950 font-fredoka px-5 md:px-6 py-2.5 rounded-2xl shadow-md text-base md:text-lg border-2 border-emerald-200 transition">
+            🐔 2. Chicken Dance
+          </button>
+          <button onclick="playBtnClick(); showIceTab('tepuk');" id="btn-tab-tepuk" class="bg-purple-400 hover:bg-purple-500 text-purple-950 font-fredoka px-5 md:px-6 py-2.5 rounded-2xl shadow-md text-base md:text-lg border-2 border-purple-200 transition">
+            👏 3. Tepuk SPOK
+          </button>
+        </div>
+
+        <!-- TAB 1: BELAJAR SPOK -->
+        <div id="tab-ice-spok" class="bg-white/95 p-4 rounded-3xl border-2 border-amber-300 shadow-xl max-w-4xl mx-auto w-full h-[88%] z-10 flex flex-col items-center justify-between my-auto">
+          <div class="w-full text-center shrink-0">
+            <div class="font-fredoka text-xl text-amber-800 mb-0.5 text-center">👏 Belajar SPOK Audio & Lirik</div>
+            <p class="text-xs font-bold text-slate-600 mb-1.5 text-center">Fokus membaca lirik sambil memutar musik video di bawah ini!</p>
+          </div>
+
+          <div id="spok-media-container" class="w-full flex-1 bg-slate-900 rounded-2xl overflow-hidden mb-2 border-2 border-slate-300 flex flex-col items-center justify-between text-white text-xs font-bold relative p-3 gap-2 overflow-y-auto custom-scroll">
+            <div class="bg-amber-500/10 border-2 border-amber-400/40 rounded-2xl p-4 md:p-6 text-center font-extrabold text-amber-200 text-xl md:text-2xl leading-relaxed shadow-inner w-full flex-1 flex items-center justify-center">
+              <div>
+                Ayo kita belajar<br>
+                unsur-unsur kalimat<br>
+                subjek itu pelaku<br>
+                predikat kegiatan<br>
+                objek kata benda dor<br>
+                keterangan menjelaskan<br>
+                unsur kalimat ada empat<br>
+                kuingat dengan cepat
+              </div>
+            </div>
+
+            <div id="spok-video-container" class="w-full max-w-xs h-20 md:h-24 bg-slate-800 rounded-xl overflow-hidden border border-slate-700 flex items-center justify-center text-slate-400 text-xs shrink-0 shadow-md">
+              <p class="text-slate-300 font-bold text-[11px] text-center px-2">Video belum diputar.<br>Klik "Mulai Video" di bawah.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-2 shrink-0">
+            <button onclick="playSpokVideo()" class="bg-amber-500 hover:bg-amber-600 text-white font-fredoka px-6 py-2 rounded-xl text-sm md:text-base shadow flex items-center gap-1 transition">
+              ▶ Mulai Video
+            </button>
+            <button onclick="stopSpokVideo()" class="bg-rose-500 hover:bg-rose-600 text-white font-fredoka px-6 py-2 rounded-xl text-sm md:text-base shadow flex items-center gap-1 transition">
+              ⏹ Hentikan Video
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 2: CHICKEN DANCE -->
+        <div id="tab-ice-chicken" class="bg-white/95 p-4 rounded-3xl border-2 border-emerald-300 shadow-xl max-w-4xl mx-auto w-full h-[88%] z-10 hidden flex-col items-center justify-between my-auto">
+          <div class="w-full text-center shrink-0">
+            <div class="font-fredoka text-xl text-emerald-800 mb-1 text-center">🐔 Chicken Video</div>
+            <p class="text-xs font-bold text-slate-600 mb-2 text-center">Klik tombol di bawah untuk memutar atau menghentikan video ice breaking!</p>
+          </div>
+
+          <div id="chicken-video-container" class="w-full flex-1 bg-slate-900 rounded-2xl overflow-hidden mb-2 border-2 border-slate-300 flex items-center justify-center text-white text-xs font-bold relative">
+            <p class="text-white text-sm font-bold">Video belum diputar. Klik "Mulai Video" di bawah.</p>
+          </div>
+
+          <div class="flex gap-2 shrink-0">
+            <button onclick="playChickenVideo()" class="bg-amber-500 hover:bg-amber-600 text-white font-fredoka px-6 py-2 rounded-xl text-sm md:text-base shadow flex items-center gap-1 transition">
+              ▶ Mulai Video
+            </button>
+            <button onclick="stopChickenVideo()" class="bg-rose-500 hover:bg-rose-600 text-white font-fredoka px-6 py-2 rounded-xl text-sm md:text-base shadow flex items-center gap-1 transition">
+              ⏹ Hentikan Video
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 3: TEPUK SPOK -->
+        <div id="tab-ice-tepuk" class="bg-white/95 p-4 rounded-3xl border-2 border-purple-300 shadow-xl max-w-4xl mx-auto w-full h-[88%] z-10 hidden flex-col items-center justify-between my-auto">
+          <div class="w-full text-center shrink-0">
+            <div class="font-fredoka text-2xl text-purple-900 mb-1 text-center">👏 TEPUK SPOK</div>
+            <p class="text-xs font-bold text-slate-600 mb-2 text-center">Lakukan gerakan tepuk tepuk bersama-sama!</p>
+          </div>
+
+          <div class="w-full flex-1 bg-purple-900/90 border-2 border-purple-400 rounded-2xl p-6 flex items-center justify-center text-center font-fredoka text-amber-300 text-2xl md:text-4xl leading-relaxed shadow-inner my-auto">
+            <div>
+              tepuk spok<br><br>
+              subjek - pelaku<br>
+              predikat - kegiatan<br>
+              objek - kata benda<br>
+              keterangan - menjelaskan
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full flex justify-start z-10 shrink-0 pt-2 border-t border-white/20">
+          <button onclick="playBtnClick(); showMenu();" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-5 py-1.5 rounded-xl font-bold text-xs">⬅ Kembali ke Menu Utama</button>
+        </div>
+      </section>
+
+      <!-- 6. KUIS -->
+      <section id="sec-kuis" class="w-full h-full p-6 md:p-8 bg-modul hidden flex-col justify-between relative">
+        <div class="absolute inset-0 bg-amber-950/20 backdrop-blur-sm z-0"></div>
+
+        <div class="flex items-center justify-between border-b border-amber-200/50 pb-2 z-10">
+          <h2 class="font-fredoka text-xl md:text-2xl text-white drop-shadow">✏ Kuis Pilihan Ganda (SPOK)</h2>
+          <span id="quiz-progress" class="font-bold text-amber-100 text-sm md:text-base">Soal 1 dari 10</span>
+        </div>
+
+        <div id="quiz-body" class="my-auto max-w-4xl mx-auto w-full bg-white/95 p-6 rounded-3xl border-2 border-amber-300 shadow-xl z-10">
+          <p id="quiz-question" class="font-extrabold text-slate-800 text-xl md:text-2xl mb-6 leading-snug whitespace-pre-line"></p>
+          <div id="quiz-options" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        </div>
+
+        <div class="flex justify-between items-center pt-2 z-10">
+          <button onclick="playBtnClick(); showMenu();" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-5 py-2 rounded-xl font-bold text-xs md:text-sm">⬅ Kembali ke Menu Utama</button>
+          <div class="flex gap-2">
+            <button onclick="playBtnClick(); prevQuestion();" id="btn-prev" class="bg-slate-200 text-slate-700 px-5 py-2 rounded-xl font-bold text-xs md:text-sm">⬅ Sebelum</button>
+            <button onclick="playBtnClick(); nextQuestion();" id="btn-next" class="btn-wood px-6 py-2 rounded-xl font-fredoka text-white text-base">Lanjut ➔</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. GAME PENGELOMPOKAN KATA SPOK -->
+      <section id="sec-games" class="w-full h-full p-3 bg-modul hidden flex-col justify-between relative overflow-y-auto custom-scroll">
+        <div class="absolute inset-0 bg-sky-950/40 backdrop-blur-sm z-0"></div>
+
+        <div class="bg-white/95 p-2 px-4 rounded-2xl border-2 border-sky-300 shadow-md text-center shrink-0 z-10 mb-2 flex items-center justify-between">
+          <div>
+            <h3 class="font-fredoka text-base text-slate-800 leading-tight">🎮 Kelompokkan Kata ke Kategori SPOK yang Tepat!</h3>
+            <p class="text-[11px] font-bold text-slate-500">Tarik (Drag & Drop) atau Klik kata dari kotak kiri, lalu pindahkan ke kotak kategori Subjek, Predikat, Objek, atau Keterangan.</p>
+          </div>
+          <div class="font-fredoka text-sm text-emerald-700 bg-emerald-100 px-3 py-1 rounded-xl border border-emerald-300">
+            Terisi: <span id="placed-count">0</span> / 60
+          </div>
+        </div>
+
+        <div class="grid grid-cols-12 gap-3 flex-1 overflow-hidden z-10">
+          
+          <div class="col-span-5 bg-white/95 p-2.5 rounded-2xl border-2 border-slate-300 shadow-md flex flex-col justify-between overflow-hidden">
+            <p class="text-[11px] font-extrabold text-slate-600 mb-1 text-center uppercase tracking-wider shrink-0 border-b pb-1">
+              📦 PILIHAN KATA (DRAG ATAU KLIK):
+            </p>
+            <div id="word-pool" 
+                 ondragover="allowDrop(event)" 
+                 ondrop="dropToPool(event)"
+                 class="grid grid-cols-2 gap-1.5 p-1.5 bg-slate-100 rounded-xl border border-dashed border-slate-300 flex-1 overflow-y-auto custom-scroll content-start">
+            </div>
+          </div>
+
+          <div class="col-span-7 grid grid-cols-2 gap-2.5 overflow-y-auto custom-scroll pr-0.5">
+            
+            <div class="spok-bg-s rounded-2xl p-2 border-2 flex flex-col justify-between shadow-sm">
+              <div class="spok-s py-1 px-2 text-center font-fredoka text-xs tracking-wide rounded-lg mb-1 shadow-sm">🔴 SUBJEK (S)</div>
+              <div id="box-s" 
+                   ondragover="allowDrop(event)" 
+                   ondrop="dropToCategory(event, 'S')" 
+                   onclick="dropSelectedToCategory('S')"
+                   class="min-h-[130px] flex-1 flex flex-wrap gap-1 content-start p-1.5 bg-white/50 rounded-xl border border-dashed border-rose-300 transition hover:bg-rose-100/50">
+              </div>
+            </div>
+
+            <div class="spok-bg-p rounded-2xl p-2 border-2 flex flex-col justify-between shadow-sm">
+              <div class="spok-p py-1 px-2 text-center font-fredoka text-xs tracking-wide rounded-lg mb-1 shadow-sm">🟠 PREDIKAT (P)</div>
+              <div id="box-p" 
+                   ondragover="allowDrop(event)" 
+                   ondrop="dropToCategory(event, 'P')" 
+                   onclick="dropSelectedToCategory('P')"
+                   class="min-h-[130px] flex-1 flex flex-wrap gap-1 content-start p-1.5 bg-white/50 rounded-xl border border-dashed border-orange-300 transition hover:bg-orange-100/50">
+              </div>
+            </div>
+
+            <div class="spok-bg-o rounded-2xl p-2 border-2 flex flex-col justify-between shadow-sm">
+              <div class="spok-o py-1 px-2 text-center font-fredoka text-xs tracking-wide rounded-lg mb-1 shadow-sm">🟢 OBJEK (O)</div>
+              <div id="box-o" 
+                   ondragover="allowDrop(event)" 
+                   ondrop="dropToCategory(event, 'O')" 
+                   onclick="dropSelectedToCategory('O')"
+                   class="min-h-[130px] flex-1 flex flex-wrap gap-1 content-start p-1.5 bg-white/50 rounded-xl border border-dashed border-emerald-300 transition hover:bg-emerald-100/50">
+              </div>
+            </div>
+
+            <div class="spok-bg-k rounded-2xl p-2 border-2 flex flex-col justify-between shadow-sm">
+              <div class="spok-k py-1 px-2 text-center font-fredoka text-xs tracking-wide rounded-lg mb-1 shadow-sm">🔵 KETERANGAN (K)</div>
+              <div id="box-k" 
+                   ondragover="allowDrop(event)" 
+                   ondrop="dropToCategory(event, 'K')" 
+                   onclick="dropSelectedToCategory('K')"
+                   class="min-h-[130px] flex-1 flex flex-wrap gap-1 content-start p-1.5 bg-white/50 rounded-xl border border-dashed border-blue-300 transition hover:bg-blue-100/50">
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="flex justify-between items-center pt-2 border-t border-white/30 shrink-0 z-10 mt-1">
+          <button onclick="playBtnClick(); showMenu();" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-1.5 rounded-xl font-bold text-xs">⬅ Kembali ke Menu</button>
+          <div class="flex gap-2">
+            <button onclick="resetGameItems()" class="bg-amber-400 hover:bg-amber-500 text-amber-950 font-bold px-4 py-1.5 rounded-xl text-xs shadow">🔄 Reset Kata</button>
+            <button onclick="checkAllCategorization()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-fredoka px-6 py-1.5 rounded-xl text-xs shadow transition">✔ Selesai &amp; Periksa</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. MENU EVALUASI -->
+      <section id="sec-evaluasi" class="w-full h-full p-6 bg-modul hidden flex-col justify-between relative">
+        <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-md z-0"></div>
+
+        <div class="z-10">
+          <div class="flex items-center justify-between border-b pb-2 mb-4 border-white/30">
+            <h2 class="font-fredoka text-2xl text-white drop-shadow">⏱️ Evaluasi Pembelajaran</h2>
+          </div>
+
+          <div class="max-w-md mx-auto bg-white/95 p-8 rounded-3xl border-2 border-amber-300 shadow-xl text-center my-auto">
+            <div class="text-5xl mb-2">⏱</div>
+            <h3 class="font-fredoka text-2xl text-slate-800 mb-1">Timer Waktu Evaluasi</h3>
+            <p class="text-xs font-bold text-slate-500 mb-6">Gunakan timer ini untuk pengerjaan soal evaluasi kelas (10 Menit).</p>
+
+            <div id="timer-display" class="font-fredoka text-5xl md:text-6xl text-amber-600 bg-amber-50 border-2 border-amber-200 py-4 px-6 rounded-3xl shadow-inner mb-6 tracking-wider">
+              10:00
+            </div>
+
+            <div class="flex justify-center gap-3">
+              <button onclick="playBtnClick(); startTimer();" class="bg-emerald-500 hover:bg-emerald-600 text-white font-fredoka px-6 py-2.5 rounded-2xl text-sm shadow transition">
+                ▶ Mulai
+              </button>
+              <button onclick="playBtnClick(); pauseTimer();" class="bg-amber-400 hover:bg-amber-500 text-amber-950 font-fredoka px-6 py-2.5 rounded-2xl text-sm shadow transition">
+                ⏸ Jeda
+              </button>
+              <button onclick="playBtnClick(); resetTimer();" class="bg-rose-500 hover:bg-rose-600 text-white font-fredoka px-6 py-2.5 rounded-2xl text-sm shadow transition">
+                🔄 Reset
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-start pt-4 border-t border-white/30 z-10">
+          <button onclick="playBtnClick(); showMenu();" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-5 py-2 rounded-xl font-bold text-xs md:text-sm">⬅ Kembali ke Menu Utama</button>
+        </div>
+      </section>
+
+      <!-- 9. PANDUAN PENGGUNAAN -->
+      <section id="sec-panduan" class="w-full h-full p-6 bg-modul hidden flex-col justify-between overflow-y-auto custom-scroll relative">
+        <div class="absolute inset-0 bg-white/90 backdrop-blur-md z-0"></div>
+
+        <div class="z-10">
+          <h2 class="font-fredoka text-2xl text-slate-800 mb-4 text-center">❓ Panduan Penggunaan</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto text-2xl">
+            <div class="bg-amber-50/95 p-4 rounded-3xl border border-amber-200 shadow-sm">
+              <h3 class="font-bold text-amber-900 mb-2">👩‍🏫 Untuk Guru:</h3>
+              <ul class="list-disc list-inside space-y-1 text-slate-700 text-xl">
+                <li>Gunakan media ini untuk pembelajaran struktur kalimat SPOK secara interaktif.</li>
+                <li>Minta murid mengelompokkan 60 kata ke dalam kategori SPOK yang tepat.</li>
+                <li>Gunakan Timer Evaluasi 10 menit untuk pengawasan latihan/tes.</li>
+              </ul>
+            </div>
+            <div class="bg-emerald-50/95 p-4 rounded-2xl border border-emerald-200 shadow-sm">
+              <h3 class="font-bold text-emerald-900 mb-2">👧 Untuk Murid:</h3>
+              <ul class="list-disc list-inside space-y-1 text-slate-700 text-xl">
+                <li>Pindahkan kata dari kotak kiri ke kotak Subjek, Predikat, Objek, atau Keterangan.</li>
+                <li>Bisa ditarik (Drag and Drop) atau diklik kata lalu diklik kotak tujuannya.</li>
+                <li>Setiap kata yang berada di kelompok tepat bernilai +10 Poin!</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-start pt-4 border-t border-slate-200 z-10">
+          <button onclick="playBtnClick(); showMenu();" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-6 py-2 rounded-xl font-bold text-sm">⬅ Kembali ke Menu Utama</button>
+        </div>
+      </section>
+
+      <!-- 10. PROFIL PENGEMBANG -->
+      <section id="sec-profil" class="w-full h-full p-6 bg-modul hidden flex-col items-center justify-between relative">
+        <div class="absolute inset-0 bg-slate-900/30 backdrop-blur-md z-0"></div>
+
+        <div></div>
+        <div class="bg-white/95 p-6 rounded-3xl border-2 border-amber-300 shadow-xl max-w-2xl w-full text-center my-auto z-10 relative overflow-hidden">
+          <div class="w-36 h-36 mx-auto mb-4 rounded-full overflow-hidden border-4 border-amber-400 bg-amber-100 shadow-md">
+            <img src="https://lh3.googleusercontent.com/d/1HGNlknEshWoadGjFC3tJddHhc5hWJmkG=s1600" 
+                 alt="Rifqiyatul Maliyah" 
+                 class="w-full h-full object-cover">
+          </div>
+          <h2 class="font-fredoka text-3xl text-slate-800">Rifqiyatul Maliyah</h2>
+          <p class="text-amber-700 font-extrabold text-base mt-1">PPG-PGSD Universitas Wijaya Kusuma Surabaya</p>
+          <div class="mt-6 bg-amber-50 border border-amber-200 py-2 px-4 rounded-2xl inline-block shadow-sm">
+            <p class="text- base font-bold text-slate-700">📧 rifqymely@gmail.com</p>
+          </div>
+        </div>
+        <div class="w-full flex justify-start z-10">
+          <button onclick="playBtnClick(); showMenu();" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-6 py-2 rounded-xl font-bold text-sm">⬅ Kembali ke Menu Utama</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- POP-UP MODAL NOTIFIKASI INTERNAL MEDIA -->
+  <div id="media-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+    <div id="modal-card" class="bg-white rounded-3xl border-4 max-w-sm w-full p-6 text-center shadow-2xl relative animate-pop">
+      <div id="modal-icon" class="text-6xl mb-2">🎉</div>
+      <h3 id="modal-title" class="font-fredoka text-2xl mb-1 text-slate-800">Judul Modal</h3>
+      <p id="modal-msg" class="text-sm font-bold text-slate-600 mb-6 whitespace-pre-line leading-relaxed">Pesan deskripsi modal.</p>
+      
+      <button onclick="playBtnClick(); closeMediaModal();" class="btn-wood px-8 py-2.5 rounded-2xl font-fredoka text-white text-sm">
+        Mengerti
+      </button>
+    </div>
+  </div>
+
+  <!-- DIALOG HASIL AKHIR PERMAINAN (REVISI: KATA SALAH DIPERBESAR) -->
+  <div id="eval-dialog" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-3xl border-4 border-amber-300 max-w-xl w-full p-6 text-center shadow-2xl relative animate-pop max-h-[92vh] flex flex-col justify-between">
+      <div>
+        <div class="text-5xl mb-1 animate-bounce">🏆</div>
+        <h3 id="eval-dialog-title" class="font-fredoka text-2xl text-slate-800 mb-1">Permainan Selesai!</h3>
+        <p id="eval-dialog-sub" class="text-xs font-bold text-slate-500 mb-3">Berikut adalah hasil pengelompokkan kata kamu:</p>
+
+        <div class="bg-amber-50 border-2 border-amber-200 p-3.5 rounded-2xl mb-3 space-y-1">
+          <p id="eval-dialog-score" class="font-fredoka text-3xl md:text-4xl text-amber-600">Skor Kamu: 0</p>
+          <p id="eval-dialog-correct" class="text-xs md:text-sm font-bold text-slate-700">Kata Tepat: 0 dari 60 Kata</p>
+          <p id="dialog-score-msg" class="text-xs font-bold text-emerald-700 mt-1">Hebat! Terus berlatih mengelompokkan kata SPOK! 🌟</p>
+        </div>
+
+        <!-- Wadah List Kata Salah Dibuat Lebih Besar (text-sm md:text-base) agar Sangat Jelas Dibaca Bersama Siswa -->
+        <div id="wrong-words-box" class="hidden bg-rose-50 border-2 border-rose-300 p-3.5 rounded-2xl mb-3 text-left max-h-52 overflow-y-auto custom-scroll shadow-inner">
+          <p class="font-fredoka text-sm md:text-base text-rose-900 mb-2 border-b border-rose-200 pb-1 flex items-center justify-between">
+            <span>❌ Kata yang Belum Sesuai Kategori:</span>
+          </p>
+          <div id="wrong-words-list" class="text-sm md:text-base font-extrabold text-slate-800 space-y-2"></div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-2 justify-center shrink-0 pt-2 border-t border-slate-100">
+        <button onclick="playBtnClick(); showWrongWordsDetails();" id="btn-check-wrong" class="bg-sky-500 hover:bg-sky-600 text-white font-fredoka px-4 py-2.5 rounded-2xl text-xs md:text-sm shadow transition">
+          🔍 Periksa Kata yang Salah
+        </button>
+        <button onclick="playBtnClick(); restartGameSession();" class="bg-amber-500 hover:bg-amber-600 text-white font-fredoka px-4 py-2.5 rounded-2xl text-xs md:text-sm shadow transition border border-amber-300">
+          🔄 Mulai Ulang Game
+        </button>
+        <button id="btn-dialog-exit" onclick="playBtnClick(); exitToMenuAndReset();" class="btn-wood px-4 py-2.5 rounded-2xl font-fredoka text-white text-xs md:text-sm">
+          🏠 Menu Utama
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // State Global
+    let quizScore = 0;
+    let gameScore = 0;
+    let currentQuizIndex = 0;
+    let userQuizAnswers = {};
+    let selectedWordId = null;
+    let lastWrongWords = [];
+
+    // Timer Evaluasi
+    let timerSeconds = 600;
+    let timerInterval = null;
+
+    // Data 60 Kata untuk Game SPOK
+    const gameWords = [
+      // Subjek (S) - 15
+      { id: 'w1', text: 'Budi', cat: 'S', color: 'tile-red' },
+      { id: 'w2', text: 'Siti', cat: 'S', color: 'tile-blue' },
+      { id: 'w3', text: 'Ibu', cat: 'S', color: 'tile-pink' },
+      { id: 'w4', text: 'Ayah', cat: 'S', color: 'tile-orange' },
+      { id: 'w5', text: 'Kucing', cat: 'S', color: 'tile-yellow' },
+      { id: 'w6', text: 'Guru', cat: 'S', color: 'tile-purple' },
+      { id: 'w7', text: 'Adik', cat: 'S', color: 'tile-teal' },
+      { id: 'w8', text: 'Kakak', cat: 'S', color: 'tile-green' },
+      { id: 'w9', text: 'Petani', cat: 'S', color: 'tile-red' },
+      { id: 'w10', text: 'Dokter', cat: 'S', color: 'tile-blue' },
+      { id: 'w11', text: 'Polisi', cat: 'S', color: 'tile-orange' },
+      { id: 'w12', text: 'Siswa', cat: 'S', color: 'tile-yellow' },
+      { id: 'w13', text: 'Burung', cat: 'S', color: 'tile-pink' },
+      { id: 'w14', text: 'Paman', cat: 'S', color: 'tile-purple' },
+      { id: 'w15', text: 'Kakek', cat: 'S', color: 'tile-teal' },
+
+      // Predikat (P) - 15
+      { id: 'w16', text: 'Membaca', cat: 'P', color: 'tile-orange' },
+      { id: 'w17', text: 'Memasak', cat: 'P', color: 'tile-pink' },
+      { id: 'w18', text: 'Menulis', cat: 'P', color: 'tile-blue' },
+      { id: 'w19', text: 'Mengejar', cat: 'P', color: 'tile-red' },
+      { id: 'w20', text: 'Membeli', cat: 'P', color: 'tile-green' },
+      { id: 'w21', text: 'Mengajar', cat: 'P', color: 'tile-purple' },
+      { id: 'w22', text: 'Bermain', cat: 'P', color: 'tile-yellow' },
+      { id: 'w23', text: 'Mencuci', cat: 'P', color: 'tile-teal' },
+      { id: 'w24', text: 'Menanam', cat: 'P', color: 'tile-orange' },
+      { id: 'w25', text: 'Memeiksa', cat: 'P', color: 'tile-pink' },
+      { id: 'w26', text: 'Mengarahkan', cat: 'P', color: 'tile-blue' },
+      { id: 'w27', text: 'Belajar', cat: 'P', color: 'tile-red' },
+      { id: 'w28', text: 'Terbang', cat: 'P', color: 'tile-green' },
+      { id: 'w29', text: 'Memotong', cat: 'P', color: 'tile-purple' },
+      { id: 'w30', text: 'Barjalan', cat: 'P', color: 'tile-yellow' },
+
+      // Objek (O) - 15
+      { id: 'w31', text: 'Buku', cat: 'O', color: 'tile-green' },
+      { id: 'w32', text: 'Nasi', cat: 'O', color: 'tile-yellow' },
+      { id: 'w33', text: 'Surat', cat: 'O', color: 'tile-pink' },
+      { id: 'w34', text: 'Tikus', cat: 'O', color: 'tile-red' },
+      { id: 'w35', text: 'Sayuran', cat: 'O', color: 'tile-teal' },
+      { id: 'w36', text: 'Murid', cat: 'O', color: 'tile-purple' },
+      { id: 'w37', text: 'Bola', cat: 'O', color: 'tile-orange' },
+      { id: 'w38', text: 'Baju', cat: 'O', color: 'tile-blue' },
+      { id: 'w39', text: 'Padi', cat: 'O', color: 'tile-green' },
+      { id: 'w40', text: 'Pasien', cat: 'O', color: 'tile-pink' },
+      { id: 'w41', text: 'Lalu Lintas', cat: 'O', color: 'tile-yellow' },
+      { id: 'w42', text: 'Matematika', cat: 'O', color: 'tile-purple' },
+      { id: 'w43', text: 'Sayap', cat: 'O', color: 'tile-teal' },
+      { id: 'w44', text: 'Rumput', cat: 'O', color: 'tile-red' },
+      { id: 'w45', text: 'Tongkat', cat: 'O', color: 'tile-orange' },
+
+      // Keterangan (K) - 15
+      { id: 'w46', text: 'di Perpustakaan', cat: 'K', color: 'tile-blue' },
+      { id: 'w47', text: 'di Dapur', cat: 'K', color: 'tile-teal' },
+      { id: 'w48', text: 'kemarin sore', cat: 'K', color: 'tile-yellow' },
+      { id: 'w49', text: 'di Halaman', cat: 'K', color: 'tile-purple' },
+      { id: 'w50', text: 'di Pasar', cat: 'K', color: 'tile-orange' },
+      { id: 'w51', text: 'di Kelas', cat: 'K', color: 'tile-pink' },
+      { id: 'w52', text: 'di Lapangan', cat: 'K', color: 'tile-green' },
+      { id: 'w53', text: 'pagi ini', cat: 'K', color: 'tile-red' },
+      { id: 'w54', text: 'di Sawah', cat: 'K', color: 'tile-blue' },
+      { id: 'w55', text: 'di Rumah Sakit', cat: 'K', color: 'tile-teal' },
+      { id: 'w56', text: 'di Jalan Raya', cat: 'K', color: 'tile-yellow' },
+      { id: 'w57', text: 'dengan Sungguh', cat: 'K', color: 'tile-purple' },
+      { id: 'w58', text: 'di Udara', cat: 'K', color: 'tile-pink' },
+      { id: 'w59', text: 'sore hari', cat: 'K', color: 'tile-orange' },
+      { id: 'w60', text: 'dengan Perlahan', cat: 'K', color: 'tile-green' }
+    ];
+
+    // Data Kuis Pilihan Ganda (10 Soal)
+    const quizData = [
+      {
+        q: "1. Kata yang menunjukkan 'pelaku' dalam sebuah kalimat disebut...",
+        opts: ["A. Subjek (S)", "B. Predikat (P)", "C. Objek (O)", "D. Keterangan (K)"],
+        ans: 0
+      },
+      {
+        q: "2. Pada kalimat 'Ibu memasak nasi di dapur', kata 'memasak' kedudukannya sebagai...",
+        opts: ["A. Subjek (S)", "B. Predikat (P)", "C. Objek (O)", "D. Keterangan (K)"],
+        ans: 1
+      },
+      {
+        q: "3. Mana yang merupakan contoh dari Objek (O)?",
+        opts: ["A. Di sekolah", "B. Membaca", "C. Buku", "D. Adik"],
+        ans: 2
+      },
+      {
+        q: "4. Pada kalimat 'Kucing mengejar tikus', kata 'tikus' berperan sebagai...",
+        opts: ["A. Subjek", "B. Predikat", "C. Objek", "D. Keterangan tempat"],
+        ans: 2
+      },
+      {
+        q: "5. Frasa 'kemarin sore' dalam struktur SPOK biasanya berperan sebagai...",
+        opts: ["A. Subjek", "B. Predikat", "C. Objek", "D. Keterangan waktu"],
+        ans: 3
+      },
+      {
+        q: "6. Susunan struktur yang benar dari kalimat 'Budi membaca buku di perpustakaan' adalah...",
+        opts: ["A. S - P - O - K", "B. S - O - P - K", "C. K - S - P - O", "D. P - S - O - K"],
+        ans: 0
+      },
+      {
+        q: "7. Unsur kalimat yang biasanya berupa kata kerja adalah...",
+        opts: ["A. Subjek", "B. Predikat", "C. Objek", "D. Keterangan"],
+        ans: 1
+      },
+      {
+        q: "8. Manakah kalimat berikut yang hanya memiliki pola S + P?",
+        opts: ["A. Ibu membeli sayur", "B. Adik menangis", "C. Ayah membaca koran", "D. Saya makan di kamar"],
+        ans: 1
+      },
+      {
+        q: "9. Kata 'di rumah sakit' dalam kalimat 'Dokter memeriksa pasien di rumah sakit' merupakan...",
+        opts: ["A. Keterangan Tempat", "B. Keterangan Waktu", "C. Objek", "D. Subjek"],
+        ans: 0
+      },
+      {
+        q: "10. Apa yang dimaksud dengan Objek (O) dalam struktur kalimat?",
+        opts: [
+          "A. Pelaku utama kalimat",
+          "B. Kegiatan yang dilakukan",
+          "C. Sesuatu yang dikenai tindakan oleh subjek",
+          "D. Penjelas waktu dan tempat"
+        ],
+        ans: 2
+      }
+    ];
+
+    // Audio Synthesizer
+    let audioCtx = null;
+
+    function unlockAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playBtnClick() {
+      unlockAudioContext();
+      if (!audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.05);
+        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.05);
+      } catch (e) {}
+    }
+
+    function playSuccessSound() {
+      unlockAudioContext();
+      if (!audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+        osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+        osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2); // G5
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.4);
+      } catch (e) {}
+    }
+
+    function playWrongSound() {
+      unlockAudioContext();
+      if (!audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+        osc.frequency.setValueAtTime(200, audioCtx.currentTime + 0.15);
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.3);
+      } catch (e) {}
+    }
+
+    // Fullscreen Handler
+    function toggleFullscreen() {
+      const doc = window.document;
+      const docEl = doc.documentElement;
+
+      const requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestAnimationFrame || docEl.msRequestFullscreen;
+      const cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+      if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+        if (requestFullScreen) requestFullScreen.call(docEl);
+      } else {
+        if (cancelFullScreen) cancelFullScreen.call(doc);
+      }
+    }
+
+    // Navigasi Section
+    function showSection(secId) {
+      const sections = ['sec-cover', 'sec-menu', 'sec-tujuan', 'sec-materi', 'sec-ice', 'sec-kuis', 'sec-games', 'sec-evaluasi', 'sec-panduan', 'sec-profil'];
+      sections.forEach(s => {
+        const el = document.getElementById(s);
+        if (el) {
+          el.classList.add('hidden');
+          el.classList.remove('flex');
+        }
+      });
+
+      const target = document.getElementById('sec-' + secId);
+      if (target) {
+        target.classList.remove('hidden');
+        target.classList.add('flex');
+      }
+
+      // Atur Header
+      const headerScore = document.getElementById('header-score-box');
+      if (secId === 'games') {
+        headerScore.classList.remove('hidden');
+        headerScore.classList.add('flex');
+        initGame();
+      } else {
+        headerScore.classList.add('hidden');
+        headerScore.classList.remove('flex');
+      }
+
+      if (secId === 'kuis') {
+        currentQuizIndex = 0;
+        userQuizAnswers = {};
+        renderQuizQuestion();
+      }
+    }
+
+    function showMenu() {
+      showSection('menu');
+    }
+
+    function goToHome() {
+      showSection('cover');
+    }
+
+    // Audio Materi
+    function playMateriAudio() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const text = "Definisi. Struktur kalimat adalah susunan atau pola unsur-unsur dalam sebuah kalimat agar kalimat tersebut jelas, runtut, dan mudah dipahami. Unsur-unsur kalimat terdiri dari Subjek yaitu pelaku, Predikat yaitu kegiatan, Objek yaitu yang dikenai tindakan, dan Keterangan yaitu penjelas tempat, waktu, atau cara.";
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'id-ID';
+        utter.rate = 0.9;
+        window.speechSynthesis.speak(utter);
+      } else {
+        openMediaModal('🔊 Informasi', 'Fitur pembaca suara tidak didukung di peramban ini.');
+      }
+    }
+
+    function stopMateriAudio() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    }
+
+    // Navigasi Tab Ice Breaking
+    function showIceTab(tab) {
+      const tabSpok = document.getElementById('tab-ice-spok');
+      const tabChicken = document.getElementById('tab-ice-chicken');
+      const tabTepuk = document.getElementById('tab-ice-tepuk');
+
+      tabSpok.classList.add('hidden');
+      tabSpok.classList.remove('flex');
+      tabChicken.classList.add('hidden');
+      tabChicken.classList.remove('flex');
+      tabTepuk.classList.add('hidden');
+      tabTepuk.classList.remove('flex');
+
+      stopSpokVideo();
+      stopChickenVideo();
+
+      if (tab === 'spok') {
+        tabSpok.classList.remove('hidden');
+        tabSpok.classList.add('flex');
+      } else if (tab === 'chicken') {
+        tabChicken.classList.remove('hidden');
+        tabChicken.classList.add('flex');
+      } else if (tab === 'tepuk') {
+        tabTepuk.classList.remove('hidden');
+        tabTepuk.classList.add('flex');
+      }
+    }
+
+    function playSpokVideo() {
+      const container = document.getElementById('spok-video-container');
+      container.innerHTML = `<iframe class="w-full h-full rounded-xl" src="https://drive.google.com/file/d/1M9O5ibVSjgQ4iLHqEBB1REOrB46HcMhk/preview" allow="autoplay" frameborder="0" allowfullscreen></iframe>`;
+    }
+
+    function stopSpokVideo() {
+      const container = document.getElementById('spok-video-container');
+      container.innerHTML = `<p class="text-slate-300 font-bold text-[11px] text-center px-2">Video belum diputar.<br>Klik "Mulai Video" di bawah.</p>`;
+    }
+
+    function playChickenVideo() {
+      const container = document.getElementById('chicken-video-container');
+      container.innerHTML = `<iframe class="w-full h-full rounded-2xl" src="https://drive.google.com/file/d/18g4ZstmDil_eKFw_oB_0V7p5KAE85px2/preview" allow="autoplay" frameborder="0" allowfullscreen></iframe>`;
+    }
+
+    function stopChickenVideo() {
+      const container = document.getElementById('chicken-video-container');
+      container.innerHTML = `<p class="text-white text-sm font-bold">Video belum diputar. Klik "Mulai Video" di bawah.</p>`;
+    }
+
+    // Kuis Logic
+    function renderQuizQuestion() {
+      const qObj = quizData[currentQuizIndex];
+      document.getElementById('quiz-progress').innerText = `Soal ${currentQuizIndex + 1} dari ${quizData.length}`;
+      document.getElementById('quiz-question').innerText = qObj.q;
+
+      const optsBox = document.getElementById('quiz-options');
+      optsBox.innerHTML = '';
+
+      qObj.opts.forEach((optText, idx) => {
+        const btn = document.createElement('button');
+        const isSelected = userQuizAnswers[currentQuizIndex] === idx;
+        
+        btn.className = `p-4 md:p-5 rounded-2xl border-2 font-extrabold text-base md:text-xl text-left transition-all shadow-md ${
+          isSelected 
+            ? 'bg-amber-400 border-amber-600 text-slate-900 scale-[1.01]' 
+            : 'bg-slate-50 border-slate-200 hover:bg-amber-100 text-slate-800 hover:border-amber-300'
+        }`;
+        btn.innerText = optText;
+
+        btn.onclick = () => {
+          selectQuizOption(idx);
+        };
+        optsBox.appendChild(btn);
+      });
+
+      document.getElementById('btn-prev').style.visibility = currentQuizIndex === 0 ? 'hidden' : 'visible';
+      document.getElementById('btn-next').innerText = currentQuizIndex === quizData.length - 1 ? 'Selesai Kuis ✔' : 'Lanjut ➔';
+    }
+
+    function selectQuizOption(idx) {
+      const qObj = quizData[currentQuizIndex];
+      userQuizAnswers[currentQuizIndex] = idx;
+      renderQuizQuestion();
+
+      if (idx === qObj.ans) {
+        playSuccessSound();
+        openMediaModal('🎉 Jawaban Kamu BENAR!', `Hebat sekali! Jawaban kamu tepat.\n\n🌟 Nilai Tambahan: +10 Poin!`, '✅');
+      } else {
+        playWrongSound();
+        const correctText = qObj.opts[qObj.ans];
+        openMediaModal('❌ Jawaban Kurang Tepat', `Sayang sekali, jawabanmu belum tepat.\n\n💡 Jawaban yang benar adalah:\n"${correctText}"`, '❌');
+      }
+    }
+
+    function nextQuestion() {
+      if (currentQuizIndex < quizData.length - 1) {
+        currentQuizIndex++;
+        renderQuizQuestion();
+      } else {
+        calculateQuizScore();
+      }
+    }
+
+    function prevQuestion() {
+      if (currentQuizIndex > 0) {
+        currentQuizIndex--;
+        renderQuizQuestion();
+      }
+    }
+
+    function calculateQuizScore() {
+      let correct = 0;
+      quizData.forEach((q, idx) => {
+        if (userQuizAnswers[idx] === q.ans) correct++;
+      });
+      quizScore = correct * 10;
+      playSuccessSound();
+      openMediaModal('🏆 Hasil Akhir Kuis SPOK', `Selamat! Kamu telah menyelesaikan seluruh kuis.\n\n📊 Total Skor Kamu: ${quizScore} / 100\n✨ Benar: ${correct} dari 10 Soal.`);
+    }
+
+    // Games Pengelompokan Kata SPOK
+    function initGame() {
+      const pool = document.getElementById('word-pool');
+      ['s', 'p', 'o', 'k'].forEach(c => document.getElementById('box-' + c).innerHTML = '');
+      pool.innerHTML = '';
+      selectedWordId = null;
+      lastWrongWords = [];
+
+      const shuffled = [...gameWords].sort(() => Math.random() - 0.5);
+
+      shuffled.forEach(w => {
+        const card = createWordCard(w);
+        pool.appendChild(card);
+      });
+
+      updatePlacedCount();
+    }
+
+    function createWordCard(w) {
+      const el = document.createElement('div');
+      el.id = w.id;
+      el.draggable = true;
+      el.className = `card-tile ${w.color} px-2.5 py-1.5 rounded-xl text-xs inline-block animate-pop cursor-pointer select-none`;
+      el.innerText = w.text;
+      el.dataset.cat = w.cat;
+
+      el.ondragstart = (e) => {
+        e.dataTransfer.setData('text/plain', w.id);
+      };
+
+      el.onclick = (e) => {
+        e.stopPropagation();
+        playBtnClick();
+
+        if (selectedWordId === w.id) {
+          selectedWordId = null;
+          el.classList.remove('ring-4', 'ring-amber-400');
+        } else {
+          if (selectedWordId) {
+            const prev = document.getElementById(selectedWordId);
+            if (prev) prev.classList.remove('ring-4', 'ring-amber-400');
+          }
+          selectedWordId = w.id;
+          el.classList.add('ring-4', 'ring-amber-400');
+        }
+      };
+
+      return el;
+    }
+
+    function allowDrop(e) {
+      e.preventDefault();
+    }
+
+    function dropToCategory(e, targetCat) {
+      e.preventDefault();
+      const id = e.dataTransfer ? e.dataTransfer.getData('text/plain') : selectedWordId;
+      if (!id) return;
+
+      const card = document.getElementById(id);
+      const box = document.getElementById('box-' + targetCat.toLowerCase());
+
+      if (card && box) {
+        card.classList.remove('ring-4', 'ring-amber-400');
+        box.appendChild(card);
+        selectedWordId = null;
+        updatePlacedCount();
+        playBtnClick();
+      }
+    }
+
+    function dropSelectedToCategory(targetCat) {
+      if (!selectedWordId) return;
+      const card = document.getElementById(selectedWordId);
+      const box = document.getElementById('box-' + targetCat.toLowerCase());
+
+      if (card && box) {
+        card.classList.remove('ring-4', 'ring-amber-400');
+        box.appendChild(card);
+        selectedWordId = null;
+        updatePlacedCount();
+      }
+    }
+
+    function dropToPool(e) {
+      e.preventDefault();
+      const id = e.dataTransfer ? e.dataTransfer.getData('text/plain') : selectedWordId;
+      if (!id) return;
+
+      const card = document.getElementById(id);
+      const pool = document.getElementById('word-pool');
+
+      if (card && pool) {
+        card.classList.remove('ring-4', 'ring-amber-400');
+        pool.appendChild(card);
+        selectedWordId = null;
+        updatePlacedCount();
+        playBtnClick();
+      }
+    }
+
+    function updatePlacedCount() {
+      let placed = 0;
+      ['s', 'p', 'o', 'k'].forEach(c => {
+        placed += document.getElementById('box-' + c).children.length;
+      });
+      document.getElementById('placed-count').innerText = placed;
+    }
+
+    function resetGameItems() {
+      playBtnClick();
+      initGame();
+      gameScore = 0;
+      document.getElementById('header-score-val').innerText = '0';
+    }
+
+    function checkAllCategorization() {
+      let correct = 0;
+      let totalPlaced = 0;
+      lastWrongWords = [];
+
+      const categoryNames = {
+        'S': 'Subjek (S)',
+        'P': 'Predikat (P)',
+        'O': 'Objek (O)',
+        'K': 'Keterangan (K)'
+      };
+
+      const cats = ['S', 'P', 'O', 'K'];
+      cats.forEach(c => {
+        const box = document.getElementById('box-' + c.toLowerCase());
+        Array.from(box.children).forEach(card => {
+          totalPlaced++;
+          if (card.dataset.cat === c) {
+            correct++;
+          } else {
+            lastWrongWords.push({
+              text: card.innerText,
+              userCat: categoryNames[c],
+              correctCat: categoryNames[card.dataset.cat]
+            });
+          }
+        });
+      });
+
+      const pool = document.getElementById('word-pool');
+      Array.from(pool.children).forEach(card => {
+        lastWrongWords.push({
+          text: card.innerText,
+          userCat: 'Belum Diisi',
+          correctCat: categoryNames[card.dataset.cat]
+        });
+      });
+
+      gameScore = correct * 10;
+      document.getElementById('header-score-val').innerText = gameScore;
+
+      document.getElementById('eval-dialog-score').innerText = `Skor Kamu: ${gameScore}`;
+      document.getElementById('eval-dialog-correct').innerText = `Kata Tepat: ${correct} dari 60 Kata`;
+
+      let msg = "Terus tingkatkan pemahamanmu tentang struktur SPOK! 💪";
+      if (correct === 60) msg = "SANGAT SEMPURNA! Kamu menguasai SPOK dengan luar biasa! 🏆🌟";
+      else if (correct >= 45) msg = "HEBAT SEKALI! Hasil pengelompokkanmu sangat akurat! 🎉";
+      else if (correct >= 25) msg = "BAGUS! Berlatih lagi agar lebih paham ya! 👍";
+
+      document.getElementById('dialog-score-msg').innerText = msg;
+      document.getElementById('wrong-words-box').classList.add('hidden');
+
+      playSuccessSound();
+      document.getElementById('eval-dialog').classList.remove('hidden');
+      document.getElementById('eval-dialog').classList.add('flex');
+    }
+
+    // REVISI: TAMPILAN KATA YANG SALAH DIBUAT LEBIH BESAR & JELAS
+    function showWrongWordsDetails() {
+      const wrongBox = document.getElementById('wrong-words-box');
+      const wrongList = document.getElementById('wrong-words-list');
+      wrongList.innerHTML = '';
+
+      if (lastWrongWords.length === 0) {
+        wrongList.innerHTML = '<p class="text-emerald-700 font-bold text-base md:text-lg">🎉 Tidak ada kata yang salah! Semua kata tepat!</p>';
+      } else {
+        lastWrongWords.forEach((item, idx) => {
+          const div = document.createElement('div');
+          div.className = 'bg-white p-2.5 rounded-xl border border-rose-200 shadow-sm leading-snug';
+          div.innerHTML = `<span class="text-slate-800 font-extrabold text-base md:text-lg">"${item.text}"</span> ➔ Diletakkan di: <span class="text-rose-600 font-bold">${item.userCat}</span> | <span class="text-emerald-700 font-extrabold">Seharusnya: ${item.correctCat}</span>`;
+          wrongList.appendChild(div);
+        });
+      }
+
+      wrongBox.classList.remove('hidden');
+    }
+
+    function restartGameSession() {
+      document.getElementById('eval-dialog').classList.add('hidden');
+      document.getElementById('eval-dialog').classList.remove('flex');
+      initGame();
+    }
+
+    function exitToMenuAndReset() {
+      document.getElementById('eval-dialog').classList.add('hidden');
+      document.getElementById('eval-dialog').classList.remove('flex');
+      showMenu();
+    }
+
+    // Timer Evaluasi
+    function formatTimer(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function startTimer() {
+      if (timerInterval) return;
+      timerInterval = setInterval(() => {
+        if (timerSeconds > 0) {
+          timerSeconds--;
+          document.getElementById('timer-display').innerText = formatTimer(timerSeconds);
+        } else {
+          pauseTimer();
+          playSuccessSound();
+          openMediaModal('⏱️ Waktu Habis!', 'Waktu evaluasi 10 menit telah selesai. Kumpulkan hasil pengerjaanmu!');
+        }
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    }
+
+    function resetTimer() {
+      pauseTimer();
+      timerSeconds = 600;
+      document.getElementById('timer-display').innerText = formatTimer(timerSeconds);
+    }
+
+    // Modal Helper Internal Media
+    function openMediaModal(title, msg, icon = '🎉') {
+      document.getElementById('modal-title').innerText = title;
+      document.getElementById('modal-msg').innerText = msg;
+      document.getElementById('modal-icon').innerText = icon;
+      
+      const modal = document.getElementById('media-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeMediaModal() {
+      const modal = document.getElementById('media-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  </script>
+</body>
+</html>
